@@ -7,6 +7,7 @@ import store from './store/'
 import VueLazyload from 'vue-lazyload'
 import App from './App.vue'
 import Loading from './components/loading'
+import vuetify from './plugins/vuetify';
 require('./assets/css/base.css'); //全局引入
 Vue.use(Less);
 Vue.use(VueRouter);
@@ -72,5 +73,6 @@ new Vue({
     el: '#app',
     router,
     store,
+    vuetify,
     render: h => h(App)
 })
