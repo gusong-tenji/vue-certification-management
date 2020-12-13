@@ -26,7 +26,7 @@ export default{
                         window.sessionStorage.userInfo = JSON.stringify(_this.userInfo);
                         console.log(_this.$store);
                         _this.$store.dispatch('setUserInfo', _this.userInfo);
-                        let redirect = decodeURIComponent(_this.$route.query.redirect || '/search');
+                        let redirect = decodeURIComponent(_this.$route.query.redirect || '/home');
                         _this.$router.push({
                             path: redirect
                         });
@@ -38,6 +38,7 @@ export default{
                 }
                     console.log(res);
                 },(err)=>{
+                    alert('APIエラーが発生しました。');
                     console.log(err);
                 });
             }

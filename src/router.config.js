@@ -7,12 +7,14 @@
 import Login from './components/Login.vue'
 import Reg from './components/Reg.vue'
 import SearchPage from './components/SearchPage.vue'
+import Home from './components/HomePage.vue'
 import HelloWorld from './components/HelloWorld.vue'
 export default [
-//     {
-//     path: '/home',
-//     component: Home
-// }, {
+    {
+    path: '/home',
+    component: Home
+},
+// {
 //     path: '/catgory',
 //     component: Category
 // }, {
