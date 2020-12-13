@@ -6,6 +6,8 @@
 // import Mine from './components/Mine.vue'
 import Login from './components/Login.vue'
 import Reg from './components/Reg.vue'
+import SearchPage from './components/SearchPage.vue'
+import HelloWorld from './components/HelloWorld.vue'
 export default [
 //     {
 //     path: '/home',
@@ -29,6 +31,12 @@ export default [
 }, {
     path: '/register',
     component: Reg
+}, {
+    path: '/helloWorld',
+    component: HelloWorld
+},{
+    path: '/search',
+    component: SearchPage
 }
 // ,{
 //     path: '/catgory/:id',
