@@ -19,7 +19,6 @@ export default{
                     loginName:_this.username,
                     loginPawd:_this.password,
                 }).then((res)=>{
-                    console.log(_this.password);
                 if(res.status == 200){
                     _this.userInfo = res.data;
                     if(_this.userInfo.status == 1){
