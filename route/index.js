@@ -227,5 +227,20 @@ module.exports = () => {
             }
         });
     });
+    route.get('/employeeinfo', (req, res) => {
+        const getEmployee = "SELECT employee_id as '社員番号',name,name as '名前',frigana as 'フリガナ',DATE_FORMAT( entering_date , '%Y/%m/%d' ) '入社年月日' from employee ";
+        db.query(getEmployee, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('database err').end();
+            } else {
+                if (data.length == 0) {
+                    res.status(500).send('no datas').end();
+                } else {
+                    res.send(data);
+                }
+            }
+        });
+    });
     return route;
 }

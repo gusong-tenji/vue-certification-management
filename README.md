@@ -12,7 +12,7 @@ npm run serve
 
 ### Run nodejs development
 ```
-node server.js
+npm run server
 ```
 
 ### Compiles and minifies for production

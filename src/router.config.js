@@ -7,6 +7,7 @@
 import Login from './components/Login.vue'
 import Reg from './components/Reg.vue'
 import SearchPage from './components/SearchPage.vue'
+import SelectPage from './components/SelectPage.vue'
 import Home from './components/HomePage.vue'
 import HelloWorld from './components/HelloWorld.vue'
 export default [
@@ -39,6 +40,9 @@ export default [
 },{
     path: '/search',
     component: SearchPage
+},{
+    path: '/select',
+    component: SelectPage
 }
 // ,{
 //     path: '/catgory/:id',
