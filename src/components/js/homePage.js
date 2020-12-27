@@ -7,7 +7,8 @@ export default {
     return {
       drawer: false,
       group: null,
-      title: '検索画面'
+      title: '検索画面',
+      inputData: {}
     }
   },
   components: {
@@ -16,17 +17,27 @@ export default {
     SearchMainView
   },
   methods: {
-    input() {
+    input(event, data = false) {
       this.title = '入力画面'
-      console.log(this.title)
+      if (data) {
+        this.title = '更新画面'
+        this.inputData = data
+      }
     },
     list() {
       this.title = '社員一覧'
-      console.log(this.title)
     },
     search() {
       this.title = '検索画面'
-      console.log(this.title)
-    }
+    },
+    handleSwitch (event, data) {
+      if (event == 'input') {
+        this.input('', data)
+      } else if (event == 'search') {
+        this.search()
+      } else if (event == 'list') {
+        this.list()
+      }
+    },
   }
 }

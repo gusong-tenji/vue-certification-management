@@ -36,15 +36,15 @@
       </v-navigation-drawer>
 
 	<div v-if="title=='検索画面'">
-		<SearchMainView></SearchMainView>
+		<SearchMainView v-on:handleSwitch="handleSwitch"></SearchMainView>
 	</div>
 		
-	<div v-else-if="title=='入力画面'">
-		<InputMainView></InputMainView>
+	<div v-else-if="title=='入力画面' ||title=='更新画面' ">
+		<InputMainView :parentData="inputData" v-on:handleSwitch="handleSwitch"></InputMainView>
 	</div>
 
 	<div v-else-if="title=='社員一覧'">
-		<ListMainView></ListMainView>
+		<ListMainView v-on:handleSwitch="handleSwitch"></ListMainView>
 	</div>
 
     </v-card>

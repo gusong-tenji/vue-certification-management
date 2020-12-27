@@ -242,5 +242,51 @@ module.exports = () => {
             }
         });
     });
+    route.get('/employees', (req, res) => {
+        const getEmployee = "SELECT employee_id ,name,frigana ,DATE_FORMAT( entering_date , '%Y/%m/%d' ) entering_date from employee ";
+        db.query(getEmployee, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('database err').end();
+            } else {
+                if (data.length == 0) {
+                    res.status(500).send('no datas').end();
+                } else {
+                    res.send(data);
+                }
+            }
+        });
+    });
+    route.get('/employeeCertifications', (req, res) => {
+        const getEmployee = "SELECT e.employee_id ,name,frigana ,DATE_FORMAT( entering_date , '%Y/%m/%d' ) entering_date,"
+        + " certification_name, DATE_FORMAT( get_date , '%Y/%m/%d' ) get_date,  DATE_FORMAT( encourage_date , '%Y/%m/%d' ) encourage_date"
+        + " from employee e,employee_certification c where e.employee_id = c.employee_id ";
+        db.query(getEmployee, (err, data) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('database err').end();
+            } else {
+                if (data.length == 0) {
+                    res.status(500).send('no datas').end();
+                } else {
+                    res.send(data);
+                }
+            }
+        });
+    });
+    route.post('/saveEmployeeCertification', (req, res) => {
+        let mObj = {}
+        for (let obj in req.body) {
+          mObj = JSON.parse(obj)
+        }
+        let editedItem = mObj
+        let employee_id = editedItem.employeeId
+        let certification_name = editedItem.certificationName
+        let get_date = editedItem.getDate
+        let encourage_date = editedItem.encourageDate
+    
+        const insEmployee_certification = `INSERT INTO employee_certification(employee_id,certification_name,get_date,encourage_date) VALUES('${employee_id}','${certification_name}','${get_date}','${encourage_date}')`
+        delReg(insEmployee_certification, res)
+      })
     return route;
 }
