@@ -7,10 +7,10 @@
 		<main class="user_login_box">
 		    <div class="login_dialog">
 		        <div class="_username">
-		            <input type="text" name="username" placeholder="ユーザID:" class="user_input" v-model="username"/>
+		            <input type="text" name="username" v-on:keyup.enter="goLogin()" placeholder="ユーザID:" class="user_input" v-model="username"/>
 		        </div>
 		        <div class="_username u_passwd">
-		            <input type="password" name="password" placeholder="パスワード:" class="user_input" v-model="password"/>
+		            <input type="password" name="password" v-on:keyup.enter="goLogin()" placeholder="パスワード:" class="user_input" v-model="password"/>
 		        </div>
 
 		        <div class="login_box">

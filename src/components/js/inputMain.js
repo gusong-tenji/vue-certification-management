@@ -31,7 +31,9 @@ export default {
         v => !!v || '取得日付を入力してください。'
       ],
       encourageDate:'',
-      updateMode: false
+      hasCommit: false,
+      employeeIds: [],
+      updateMode: false,
     }),
 
     created () {
@@ -49,9 +51,38 @@ export default {
           this.getDate = this.parentData.get_date,
           this.encourageDate = this.parentData.encourage_date
           this.updateMode = true
+        } else {
+          let _this = this;
+  
+          _this.$http.get('/employees').then((res)=>{
+        if(res.status == 200){
+          console.log('res.data ', res.data)
+          this.employeeIds = res.data;
+        }else{
+            alert('エラーが発生しました。');
+        }
+            console.log(res);
+        },(err)=>{
+            alert('APIエラーが発生しました。');
+            console.log(err);
+        });
         }
       },
+      
+      customFilter (item, queryText, itemText) {
+        const textOne = item.employee_id.toLowerCase()
+        const searchText = queryText.toLowerCase()
 
+        return textOne.indexOf(searchText) > -1
+      },
+
+      fillOthers () {
+        console.log(this.employeeId)
+        const employInfo = this.employeeIds.find(e => e.employee_id == this.employeeId )
+        this.name = employInfo.name
+        this.frigana = employInfo.frigana
+        this.enteringDate = employInfo.entering_date
+      },
       validate () {
         let _this = this;
 
@@ -73,7 +104,10 @@ export default {
               _this.regInfo = res.data;
               if(_this.regInfo.status == 1){
                   // alert('提出成功しました。');
-                  this.$emit('handleSwitch','search')
+                  this.hasCommit = true
+                  setTimeout(() => {
+                    this.$emit('handleSwitch','search')
+                  }, 1000);
               }else{
                   alert('提出失敗しました。');
               }

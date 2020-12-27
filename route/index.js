@@ -243,7 +243,7 @@ module.exports = () => {
         });
     });
     route.get('/employees', (req, res) => {
-        const getEmployee = "SELECT employee_id ,name,frigana ,DATE_FORMAT( entering_date , '%Y/%m/%d' ) entering_date from employee ";
+        const getEmployee = "SELECT employee_id ,name,frigana ,DATE_FORMAT( entering_date , '%Y-%m-%d' ) entering_date from employee ";
         db.query(getEmployee, (err, data) => {
             if (err) {
                 console.log(err);

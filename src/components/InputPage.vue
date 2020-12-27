@@ -1,6 +1,19 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
-    <v-text-field v-model="employeeId" :counter="6" :rules="employeeIdRules" label="社員ID" required></v-text-field>
+    <!-- <v-text-field v-model="employeeId" :counter="6" :rules="employeeIdRules" label="社員ID" required></v-text-field> -->
+
+    <v-autocomplete
+        :items="employeeIds"
+        :filter="customFilter"
+        color="white"
+        item-text="employee_id"
+        label="社員ID"
+        :rules="employeeIdRules" 
+        v-model="employeeId"
+        required
+        @change="fillOthers()"
+      ></v-autocomplete>
+
     <v-text-field v-model="name" :counter="10" :rules="nameRules" label="名前" required></v-text-field>
 
 
@@ -83,6 +96,15 @@
     <v-btn color="success" class="mr-4" @click="validate">提出</v-btn>
 
     <v-btn color="error" class="mr-4" @click="reset">リセット</v-btn>
+    <v-snackbar
+      v-model="hasCommit"
+      :timeout="2000"
+      absolute
+      bottom
+      left
+    >
+      提出しました。
+    </v-snackbar>
 
     <!-- <v-btn color="warning" @click="resetValidation">Reset Validation</v-btn> -->
   </v-form>
