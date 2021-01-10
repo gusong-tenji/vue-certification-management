@@ -99,7 +99,9 @@ export default {
             encourageDate: _this.encourageDate
           }
 
-          _this.$http.post('/saveEmployeeCertification',sendData).then((res)=>{
+          const api = this.updateMode ? '/updateEmployeeCertification' : '/saveEmployeeCertification'
+
+          _this.$http.post(api,sendData).then((res)=>{
             if(res.status == 200){
               _this.regInfo = res.data;
               if(_this.regInfo.status == 1){

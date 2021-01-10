@@ -4,6 +4,12 @@
       dialogDelete: false,
       headers: [
         {
+          text: 'No.',
+          align: 'start',
+          sortable: false,
+          value: 'row_num',
+        },
+        {
           text: '名前',
           align: 'start',
           sortable: false,
@@ -89,7 +95,17 @@
       },
 
       deleteItemConfirm () {
-        this.desserts.splice(this.editedIndex, 1)
+        this.$http.post('/deleteEmployeeCertification',this.editedItem).then((res)=>{
+          if(res.status == 200){
+            this.initialize()
+          }else{
+            alert('エラーが発生しました。');
+        }
+            console.log(res);
+        },(err)=>{
+            alert('APIエラーが発生しました。');
+            console.log(err);
+        });
         this.closeDelete()
       },
 

@@ -83,6 +83,7 @@
             v-model="encourageDate"
             label="奨励金日付"
             readonly
+            clearable
             v-bind="attrs"
             v-on="on"
           ></v-text-field>

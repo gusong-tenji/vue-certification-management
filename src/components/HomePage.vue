@@ -6,6 +6,19 @@
         <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{title}}</v-toolbar-title>
+        <template v-slot:extension>
+          <v-tabs align-with-title v-model="tab">
+            <v-tabs-slider color="yellow"></v-tabs-slider>
+
+          <v-tab
+            v-for="item in items"
+            :key="item.name"
+            @click="item.event"
+          >
+            {{ item.name }}
+          </v-tab>
+          </v-tabs>
+        </template>
       </v-app-bar>
 
       <v-navigation-drawer v-model="drawer" absolute temporary>
@@ -25,7 +38,7 @@
               <v-list-item-title @click="input">入力画面</v-list-item-title>
             </v-list-item>
 
-			<v-list-item>
+			    <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-account</v-icon>
               </v-list-item-icon>
@@ -39,7 +52,7 @@
 		<SearchMainView v-on:handleSwitch="handleSwitch"></SearchMainView>
 	</div>
 		
-	<div v-else-if="title=='入力画面' ||title=='更新画面' ">
+	<div v-else-if="title=='入力画面'">
 		<InputMainView :parentData="inputData" v-on:handleSwitch="handleSwitch"></InputMainView>
 	</div>
 

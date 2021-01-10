@@ -7,6 +7,12 @@ export default {
     return {
       drawer: false,
       group: null,
+      tab: null,
+      items: [
+        {name:'検索画面', event: this.search},
+        {name:'入力画面', event: this.input},
+        {name:'社員一覧', event: this.list},
+      ],
       title: '検索画面',
       inputData: {}
     }
@@ -17,18 +23,21 @@ export default {
     SearchMainView
   },
   methods: {
-    input(event, data = false) {
-      this.title = '入力画面'
-      if (data) {
-        this.title = '更新画面'
-        this.inputData = data
-      }
+    input(event, data = '') {
+      const tabNum = 1
+      this.title = this.items[tabNum].name
+      this.tab = tabNum
+      this.inputData = data
     },
     list() {
-      this.title = '社員一覧'
+      const tabNum = 2
+      this.title = this.items[tabNum].name
+      this.tab = tabNum
     },
     search() {
-      this.title = '検索画面'
+      const tabNum = 0
+      this.title = this.items[tabNum].name
+      this.tab = tabNum
     },
     handleSwitch (event, data) {
       if (event == 'input') {
