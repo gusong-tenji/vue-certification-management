@@ -77,6 +77,12 @@ export default {
         return textOne.indexOf(searchText) > -1
       },
 
+      checkCertification () {
+        if (this.getDate || this.certificationName) {
+          this.updateCertMode = true
+        }
+      },
+
       fillOthers () {
         console.log(this.employeeId)
         const employInfo = this.employeeIds.find(e => e.employee_id == this.employeeId )
@@ -100,8 +106,7 @@ export default {
             encourageDate: _this.encourageDate
           }
 
-          // const api = this.updateCertMode ? '/updateEmployeeCertification' : '/saveEmployeeCertification'
-          const api = '/updateEmployeeCertification'
+          const api = this.updateCertMode ? '/updateEmployeeCertification' : '/updateEmployee'
 
           _this.$http.post(api,sendData).then((res)=>{
             if(res.status == 200){
@@ -109,8 +114,9 @@ export default {
               if(_this.regInfo.status == 1){
                   // alert('提出成功しました。');
                   this.hasCommit = true
+                  const url = this.updateCertMode ? 'search' : 'list'
                   setTimeout(() => {
-                    this.$emit('handleSwitch','search')
+                    this.$emit('handleSwitch',url)
                   }, 1000);
               }else{
                   alert('提出失敗しました。');

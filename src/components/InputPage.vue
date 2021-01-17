@@ -41,7 +41,8 @@
         ></v-date-picker>
       </v-menu>
       
-    <v-text-field v-model="certificationName" :rules="certificationNameRules" label="資格" required></v-text-field>
+    <v-text-field v-model="certificationName" :rules="certificationNameRules" label="資格" required v-if="updateCertMode"></v-text-field>
+    <v-text-field v-model="certificationName" label="資格" v-else @change="checkCertification"></v-text-field>
 
     <v-menu
         v-model="menu2"
@@ -59,6 +60,16 @@
             v-bind="attrs"
             v-on="on"
             :rules="getDateRules"
+            v-if="updateCertMode"
+          ></v-text-field>
+          <v-text-field
+            v-model="getDate"
+            label="取得日付"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+            v-else
+            @change="checkCertification"
           ></v-text-field>
         </template>
         <v-date-picker

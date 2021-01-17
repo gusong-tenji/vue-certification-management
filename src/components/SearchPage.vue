@@ -70,7 +70,7 @@
         color="primary"
         @click="initialize"
       >
-        Reset
+        再検索
       </v-btn>
     </template>
   </v-data-table>

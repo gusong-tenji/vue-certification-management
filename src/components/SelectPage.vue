@@ -21,7 +21,7 @@
       :headers="headers"
       :items="desserts"
       single-select
-      item-key="name"
+      item-key="employee_id"
       show-select
       :search="search"
       class="elevation-1"
@@ -32,7 +32,7 @@
         color="primary"
         @click="toInput"
       >
-        入力
+        決定
       </v-btn>
     </div>
   </v-card>

@@ -15,7 +15,8 @@ export default {
         {name:'社員一覧', event: this.list},
       ],
       title: '検索画面',
-      inputData: {}
+      inputData: {},
+      dialog: false
     }
   },
   components: {

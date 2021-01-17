@@ -38,7 +38,7 @@ module.exports = () => {
         var entering_date = editedItem.enteringDate
         var certification_name = editedItem.certificationName
         var get_date = editedItem.getDate
-        var encourage_date = editedItem.encourageDate
+        var encourage_date = editedItem.encourageDate ? editedItem.encourageDate : editedItem.getDate
         
         const getEmployee = `SELECT e.employee_id from employee e where e.employee_id = '${employee_id}'`;
         db.query(getEmployee, (err, data) => {
@@ -294,7 +294,7 @@ module.exports = () => {
     });
     route.get('/employeeCertifications', (req, res) => {
         const getEmployee = "SELECT e.employee_id ,name,frigana ,DATE_FORMAT( entering_date , '%Y-%m-%d' ) entering_date,"
-        + " certification_name, DATE_FORMAT( get_date , '%Y-%m-%d' ) get_date,  if(encourage_date='0000-00-00','',DATE_FORMAT( encourage_date , '%Y-%m-%d' )) encourage_date"
+        + " certification_name, DATE_FORMAT( get_date , '%Y-%m-%d' ) get_date,  if(encourage_date=DATE_FORMAT( '0000-00-00' , '%Y-%m-%d' ),'',DATE_FORMAT( encourage_date , '%Y-%m-%d' )) encourage_date"
         + " from employee e,employee_certification c where e.employee_id = c.employee_id order BY employee_id";
         db.query(getEmployee, (err, data) => {
             if (err) {
@@ -307,25 +307,34 @@ module.exports = () => {
                     for (let index = 0; index < data.length; index++) {
                         const element = data[index];
                         element.row_num = index + 1
+                        element.encourage_date = element.encourage_date == element.get_date ? '' : element.encourage_date
                     }
                     res.send(data);
                 }
             }
         });
     });
-    route.post('/saveEmployeeCertification', (req, res) => {
+    route.post('/updateEmployee', (req, res) => {
         let mObj = {}
         for (let obj in req.body) {
           mObj = JSON.parse(obj)
         }
         let editedItem = mObj
         var employee_id = editedItem.employeeId
-        var certification_name = editedItem.certificationName
-        var get_date = editedItem.getDate
-        var encourage_date = editedItem.encourageDate
-    
-        const insEmployee_certification = `INSERT INTO employee_certification(employee_id,certification_name,get_date,encourage_date) VALUES('${employee_id}','${certification_name}','${get_date}','${encourage_date}')`
-        delReg(insEmployee_certification, res)
+        var name = editedItem.name
+        var frigana = editedItem.frigana
+        var entering_date = editedItem.enteringDate
+
+        // 社員IDを存在するかチェック 存在していない場合、社員挿入する
+        checkEmployee(editedItem, res, (existEmployee) => {
+            if (existEmployee) {
+                // 存在する場合、社員を更新
+                const upEmployee = `update employee set name = '${name}', frigana = '${frigana}', entering_date = '${entering_date}' `
+                + `where employee_id = '${employee_id}' `
+                
+                delReg(upEmployee, res)
+            }
+        })
       })
       route.post('/updateEmployeeCertification', async (req, res) => {
         let mObj = {}
@@ -336,7 +345,7 @@ module.exports = () => {
         var employee_id = editedItem.employeeId
         var certification_name = editedItem.certificationName
         var get_date = editedItem.getDate
-        var encourage_date = editedItem.encourageDate
+        var encourage_date = editedItem.encourageDate ? editedItem.encourageDate : editedItem.getDate
 
         // 社員IDを存在するかチェック 存在していない場合、社員挿入する
         checkEmployee(editedItem, res, (existEmployee) => {

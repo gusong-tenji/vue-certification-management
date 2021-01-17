@@ -8,8 +8,40 @@
         <v-toolbar-title>{{title}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon>
-          <v-icon @click="logout">mdi-logout</v-icon>
+          <!-- <v-icon @click="logout">mdi-logout</v-icon> -->
+          <v-icon @click.stop="dialog = true">mdi-logout</v-icon>
         </v-btn>
+
+        <v-dialog
+          v-model="dialog"
+          max-width="490"
+        >
+          <v-card>
+            <v-card-title class="headline">
+              ログアウトしてよろしいでしょうか?
+            </v-card-title>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+              >
+                いいえ
+              </v-btn>
+
+              <v-btn
+                color="green darken-1"
+                text
+                @click="logout"
+              >
+                はい
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
         <template v-slot:extension>
           <v-tabs align-with-title v-model="tab">
             <v-tabs-slider color="yellow"></v-tabs-slider>
