@@ -6,6 +6,10 @@
         <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
         <v-toolbar-title>{{title}}</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon @click="logout">mdi-logout</v-icon>
+        </v-btn>
         <template v-slot:extension>
           <v-tabs align-with-title v-model="tab">
             <v-tabs-slider color="yellow"></v-tabs-slider>
@@ -57,7 +61,7 @@
 	</div>
 
 	<div v-else-if="title=='社員一覧'">
-		<ListMainView v-on:handleSwitch="handleSwitch"></ListMainView>
+		<SelectMainView v-on:handleSwitch="handleSwitch"></SelectMainView>
 	</div>
 
     </v-card>

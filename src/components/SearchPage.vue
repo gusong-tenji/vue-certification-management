@@ -4,6 +4,7 @@
   <v-data-table
     :headers="headers"
     :items="desserts"
+    :search="search"
     sort-by="calories"
     class="elevation-1"
   >
@@ -18,6 +19,14 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+
+        <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="検索"
+        single-line
+        hide-details
+      ></v-text-field>
        
         <v-btn
           color="primary"

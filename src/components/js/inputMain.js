@@ -33,7 +33,7 @@ export default {
       encourageDate:'',
       hasCommit: false,
       employeeIds: [],
-      updateMode: false,
+      updateCertMode: false,
     }),
 
     created () {
@@ -44,13 +44,14 @@ export default {
       initialize () {
         if (this.parentData && this.parentData.employee_id) {
           this.employeeId = this.parentData.employee_id,
+          this.employeeIds = [this.employeeId]
           this.name =  this.parentData.name,
           this.frigana = this.parentData.frigana,
           this.enteringDate = this.parentData.entering_date,
           this.certificationName = this.parentData.certification_name,
           this.getDate = this.parentData.get_date,
           this.encourageDate = this.parentData.encourage_date
-          this.updateMode = true
+          this.updateCertMode = !!this.certificationName
         } else {
           let _this = this;
   
@@ -99,7 +100,8 @@ export default {
             encourageDate: _this.encourageDate
           }
 
-          const api = this.updateMode ? '/updateEmployeeCertification' : '/saveEmployeeCertification'
+          // const api = this.updateCertMode ? '/updateEmployeeCertification' : '/saveEmployeeCertification'
+          const api = '/updateEmployeeCertification'
 
           _this.$http.post(api,sendData).then((res)=>{
             if(res.status == 200){

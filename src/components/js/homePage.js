@@ -1,6 +1,7 @@
 import InputMainView from '../InputPage.vue';
 import ListMainView from '../ListPage.vue';
 import SearchMainView from '../SearchPage.vue';
+import SelectMainView from '../SelectPage.vue';
 
 export default {
   data() {
@@ -20,9 +21,15 @@ export default {
   components: {
     InputMainView,
     ListMainView,
-    SearchMainView
+    SearchMainView,
+    SelectMainView
   },
   methods: {
+    logout () {
+      this.$router.push({
+        path: '/'
+    });
+    },
     input(event, data = '') {
       const tabNum = 1
       this.title = this.items[tabNum].name

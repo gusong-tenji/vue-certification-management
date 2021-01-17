@@ -1,8 +1,8 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
-    <!-- <v-text-field v-model="employeeId" :counter="6" :rules="employeeIdRules" label="社員ID" required></v-text-field> -->
+    <v-text-field v-model="employeeId" :counter="6" :rules="employeeIdRules" label="社員ID" required></v-text-field>
 
-    <v-autocomplete
+    <!-- <v-autocomplete
         :items="employeeIds"
         :filter="customFilter"
         color="white"
@@ -12,11 +12,9 @@
         v-model="employeeId"
         required
         @change="fillOthers()"
-      ></v-autocomplete>
+      ></v-autocomplete> -->
 
     <v-text-field v-model="name" :counter="10" :rules="nameRules" label="名前" required></v-text-field>
-
-
     <v-text-field v-model="frigana" label="フリガナ"></v-text-field>
     
     <v-menu

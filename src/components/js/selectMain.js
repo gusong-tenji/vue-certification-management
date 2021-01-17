@@ -35,8 +35,8 @@
       });
     },
     methods: {
-      nextSort () {
-        console.log(this.selected[0])
+      toInput () {
+        this.$emit('handleSwitch','input', this.selected[0])
       }
     }
   }
