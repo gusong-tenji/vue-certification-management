@@ -294,7 +294,7 @@ module.exports = () => {
     });
     route.get('/employeeCertifications', (req, res) => {
         const getEmployee = "SELECT e.employee_id ,name,frigana ,DATE_FORMAT( entering_date , '%Y-%m-%d' ) entering_date,"
-        + " certification_name, DATE_FORMAT( get_date , '%Y-%m-%d' ) get_date,  if(encourage_date=DATE_FORMAT( '0000-00-00' , '%Y-%m-%d' ),'',DATE_FORMAT( encourage_date , '%Y-%m-%d' )) encourage_date"
+        + " certification_name, certification_id, DATE_FORMAT( get_date , '%Y-%m-%d' ) get_date,  if(encourage_date=DATE_FORMAT( '0000-00-00' , '%Y-%m-%d' ),'',DATE_FORMAT( encourage_date , '%Y-%m-%d' )) encourage_date"
         + " from employee e,employee_certification c where e.employee_id = c.employee_id order BY employee_id";
         db.query(getEmployee, (err, data) => {
             if (err) {
@@ -344,43 +344,25 @@ module.exports = () => {
         let editedItem = mObj
         var employee_id = editedItem.employeeId
         var certification_name = editedItem.certificationName
+        var certification_id = editedItem.certificationId
         var get_date = editedItem.getDate
         var encourage_date = editedItem.encourageDate ? editedItem.encourageDate : editedItem.getDate
 
         // 社員IDを存在するかチェック 存在していない場合、社員挿入する
         checkEmployee(editedItem, res, (existEmployee) => {
-            // 社員IDで検索して、資格が存在しない場合、新規挿入
+            // 社員ID存在、資格ID存在、更新
             if (existEmployee) {
-                const getCertification = `SELECT c.certification_name`
-                + ` from employee e,employee_certification c where e.employee_id = c.employee_id and e.employee_id = '${employee_id}'`;
-                db.query(getCertification, (err, data) => {
-                    if (err) {
-                        console.log(err);
-                        res.status(500).send('database err').end();
-                    } else {
-                        if (data.length == 0) {
-                            const insEmployee_certification = `INSERT INTO employee_certification(employee_id,certification_name,get_date,encourage_date) VALUES('${employee_id}','${certification_name}','${get_date}','${encourage_date}')`
-                            delReg(insEmployee_certification, res)
-                        } else {
-                            var exist = data.find(c => c.certification_name == certification_name )
-                            if (exist) {
-                                // 社員IDで検索して、資格が存在する場合、日付を更新
-                                const upEmployee_certification = `update employee_certification set get_date = '${get_date}', encourage_date = '${encourage_date}' `
-                                + `where employee_id = '${employee_id}' and certification_name = '${certification_name}'`
-                                
-                                delReg(upEmployee_certification, res)
-                            } else {
-                                const insEmployee_certification = `INSERT INTO employee_certification(employee_id,certification_name,get_date,encourage_date) VALUES('${employee_id}','${certification_name}','${get_date}','${encourage_date}')`
-                                delReg(insEmployee_certification, res)
-                            }
-                            
-                        }
-                    }
-                });
+                if( certification_id) {
+                    const upEmployee_certification = `update employee_certification set certification_name = '${certification_name}',get_date = '${get_date}', encourage_date = '${encourage_date}' `
+                    + `where employee_id = '${employee_id}' and certification_id = '${certification_id}'`
+                    delReg(upEmployee_certification, res)
+                } else {
+                    const insEmployee_certification = `INSERT INTO employee_certification(employee_id,certification_name,get_date,encourage_date) VALUES('${employee_id}','${certification_name}','${get_date}','${encourage_date}')`
+                    delReg(insEmployee_certification, res)
+                }
             }
         })
-
-      })
+    })
       route.post('/deleteEmployeeCertification', (req, res) => {
         let mObj = {}
         for (let obj in req.body) {

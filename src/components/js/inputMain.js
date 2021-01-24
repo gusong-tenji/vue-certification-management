@@ -34,6 +34,7 @@ export default {
       hasCommit: false,
       employeeIds: [],
       updateCertMode: false,
+      dialog: false
     }),
 
     created () {
@@ -41,6 +42,9 @@ export default {
     },
 
     methods: {
+      goList () {
+        this.$emit('handleSwitch','list')
+      },
       initialize () {
         if (this.parentData && this.parentData.employee_id) {
           this.employeeId = this.parentData.employee_id,
@@ -49,6 +53,7 @@ export default {
           this.frigana = this.parentData.frigana,
           this.enteringDate = this.parentData.entering_date,
           this.certificationName = this.parentData.certification_name,
+          this.certificationId = this.parentData.certification_id,
           this.getDate = this.parentData.get_date,
           this.encourageDate = this.parentData.encourage_date
           this.updateCertMode = !!this.certificationName
@@ -102,6 +107,7 @@ export default {
             frigana: _this.frigana,
             enteringDate: _this.enteringDate,
             certificationName: _this.certificationName,
+            certificationId: _this.certificationId,
             getDate: _this.getDate,
             encourageDate: _this.encourageDate
           }
