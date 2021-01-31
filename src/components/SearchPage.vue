@@ -24,6 +24,10 @@
         v-model="search"
         append-icon="mdi-magnify"
         label="検索"
+        prepend-icon="mdi-emoticon"
+        @click:prepend="changeIcon"
+        clearable
+        clear-icon="mdi-close-circle"
         single-line
         hide-details
       ></v-text-field>

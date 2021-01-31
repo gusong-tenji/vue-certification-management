@@ -82,6 +82,10 @@
       newItem () {
         this.$emit('handleSwitch','input')
       },
+      changeIcon () {
+        var today = new Date();
+        this.search=today.getFullYear() + "-" +  today.getMonth() + 1 
+      },
       editItem (item) {
         this.editedIndex = this.desserts.indexOf(item)
         this.editedItem = Object.assign({}, item)
