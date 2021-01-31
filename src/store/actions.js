@@ -12,9 +12,14 @@ export default {
         commit('hideNav')
     },
     setUserInfo: ({
-        commit,
-        userInfo,
-    }) => {
+        commit },
+        userInfo
+    ) => {
         commit('setUserInfo', userInfo);
-    }
+    },
+    userLogout ({
+        commit
+      }) {
+        commit('logout')
+      },
 }

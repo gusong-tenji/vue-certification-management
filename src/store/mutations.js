@@ -19,7 +19,15 @@ const mutations = {
     },
     setUserInfo: (state, userInfo) => {
         state.userInfo = userInfo;
-    }
+    },
+    logout: (state) => {
+        try {
+          sessionStorage.removeItem('userInfo')
+          state.userInfo = null
+        } catch (err) {
+          console.error(err)
+        }
+      },
 }
 
 export default {

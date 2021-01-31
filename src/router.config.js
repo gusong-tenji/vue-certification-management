@@ -13,7 +13,9 @@ import HelloWorld from './components/HelloWorld.vue'
 export default [
     {
     path: '/home',
-    component: Home
+    component: Home,
+    // メタフィールド
+    meta: { requiresAuth: true }
 },
 // {
 //     path: '/catgory',
@@ -34,16 +36,17 @@ export default [
 }, {
     path: '/register',
     component: Reg
-}, {
-    path: '/helloWorld',
-    component: HelloWorld
-},{
-    path: '/search',
-    component: SearchPage
-},{
-    path: '/select',
-    component: SelectPage
 }
+// , {
+//     path: '/helloWorld',
+//     component: HelloWorld
+// },{
+//     path: '/search',
+//     component: SearchPage
+// },{
+//     path: '/select',
+//     component: SelectPage
+// }
 // ,{
 //     path: '/catgory/:id',
 //     component: Category
